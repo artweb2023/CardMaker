@@ -1,6 +1,7 @@
 type Editor = {
-    id: number,
-    type: Array<CommandHistory | CardTemplate | Canvas>,
+    canvas: Array<Canvas>,
+    template: Array<CardTemplate>,
+    history: CommandHistory,
 };
 
 type CommandHistory = {
@@ -12,18 +13,20 @@ type CardTemplate = {
     id: number,
     description: string,
     elements: Array<TextInfo | Image | ArtObject>,
+    background: Color | Image,
+    size: Size,
+
 };
 
 type Canvas = {
-    id: number,
-    width: number,
-    height: number,
-    backgroundColor: number,
+    size: Size,
+    background: Color | Image,
     elements: Array<TextInfo | Image | ArtObject>,
+    active: ActiveObject | null,
 };
 
 type Filter = {
-    color: number,
+    color: Color,
 };
 
 type ActiveObject = {
@@ -37,28 +40,41 @@ type TextInfo = {
     value: string,
     fontSize: number,
     fontFamily: string,
-    color: number,
+    color: Color,
     bold: boolean,
-    x: number,
-    y: number,
+    coursive: boolean,
+    underline: boolean,
+    position: Position,
 };
 
 type Image = {
     id: number,
-    path: string;
-    source: 'computer' | 'Pixels',
-    width: number,
-    height: number,
-    x: number,
-    y: number,
+    type: 'image',
+    source: 'bs64' | 'link',
+    size: Size,
+    position: Position,
 };
 
 type ArtObject = {
     id: number,
-    type: string,
+    type: 'ArtObject',
     width: number,
     height: number,
-    color: number,
+    border_color: Color,
+    background: Color,
+    position: Position,
+};
+
+type Position = {
     x: number,
     y: number,
+};
+
+type Color = {
+    color: string,
+};
+
+type Size = {
+    width: number,
+    height: number,
 };
