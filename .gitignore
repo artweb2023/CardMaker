@@ -7,3 +7,5 @@ info/
 .eslintrc.json
 .stylelintrc.json
 .gitignore
+package-lock.json
+package-lock.json
