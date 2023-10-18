@@ -6,3 +6,4 @@ info/
 
 .eslintrc.json
 .stylelintrc.json
+.gitignore
