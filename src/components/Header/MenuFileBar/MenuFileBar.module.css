@@ -1,0 +1,17 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  width: 120px;
+  background: #ffff;
+  border-radius: 10px;
+  border: 1px solid #f6f6f6;
+  box-shadow: 0 0 5px rgba(88, 88, 88, 0.06) !important;
+  transform: translateX(37%);
+  margin-top: -5px;
+  box-sizing: border-box;
+  top: 55px;
+  left: 200px;
+  z-index: 1;
+}

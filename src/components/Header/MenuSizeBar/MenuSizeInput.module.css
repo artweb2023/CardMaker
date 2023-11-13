@@ -1,0 +1,22 @@
+.menu_input_wrapper {
+  width: 45%;
+}
+
+.menu_size_input {
+  font:
+    400 18px/20px "Montserrat",
+    sans-serif;
+  width: 130px;
+  height: 50px;
+  outline: none;
+  border: 1.4px solid #e1e5ed;
+  border-radius: 4px;
+  padding-left: 10px;
+}
+
+.menu_size_text {
+  font:
+    400 18px/20px "Montserrat",
+    sans-serif;
+  margin-bottom: 10px;
+}

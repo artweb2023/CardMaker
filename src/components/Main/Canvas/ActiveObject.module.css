@@ -1,0 +1,10 @@
+.container {
+  display: inline-block;
+  position: absolute;
+}
+
+.selected {
+  border: 2px solid #0827f5;
+  padding: 3px 3px;
+  cursor: pointer;
+}

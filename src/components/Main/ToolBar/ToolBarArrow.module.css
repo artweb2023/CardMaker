@@ -1,0 +1,14 @@
+.tool_bar__left {
+  background: url("../../../img/left_arrow.svg");
+  width: 24px;
+  height: 24px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.tool_bar__right {
+  background: url("../../../img/right_arrow.svg");
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}

@@ -1,0 +1,35 @@
+.menu-bar-pencil {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.menu-bar-pencil__text {
+  font:
+    400 16px/18px "Montserrat",
+    sans-serif;
+}
+
+.menu-bar-pencil__icon {
+  background: url("../../../img/pencil.svg");
+  display: block;
+  border-style: none;
+  margin: 0 0 0 10px;
+  width: 18px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.menu_bar_pencil_input {
+  border: none;
+  font:
+    400 16px/18px "Montserrat",
+    sans-serif;
+  border-bottom: 2px dashed rgba(11, 11, 11, 0.5);
+  padding: 8px;
+  outline: none;
+}
+
+.menu_bar_pencil_input:focus {
+  outline: none;
+}

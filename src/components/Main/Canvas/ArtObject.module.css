@@ -1,0 +1,5 @@
+.artobject {
+  position: absolute;
+  display: inline;
+  cursor: pointer;
+}

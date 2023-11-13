@@ -1,0 +1,8 @@
+.tool_bar_properties {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 840px;
+  height: 100%;
+  margin: 0 0 0 15px;
+}
