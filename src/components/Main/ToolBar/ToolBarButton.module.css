@@ -1,19 +1,23 @@
-.tool_bar_position {
-  width: 107px;
-  height: 30px;
+.tool_bar_button {
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 125px;
+  height: 30px;
+  border-style: none;
   border-radius: 4px;
   padding: 5px 10px;
   cursor: pointer;
+  background: #FFFFFF;
+  font: 400 16px/18px "Montserrat", sans-serif;
+  color: #1c2127;
 }
 
-.tool_bar_position:hover {
+.tool_bar_button:hover {
   background-color: #f6f6f6;
 }
 
-.tool_bar_position__filter {
+.tool_bar_button__filter {
   background: url("../../../img/postions.svg");
   display: block;
   margin: 0 5px 0 0;
@@ -21,19 +25,16 @@
   height: 24px;
 }
 
-.tool_bar_position__text {
-  font:
-    400 16px/18px "Montserrat",
-    sans-serif;
-  color: #1c2127;
-}
-
-.tool_bar_trash:hover {
-  background-color: #f6f6f6;
-}
-
-.tool_bar_position__trash {
+.tool_bar_button__trash {
   background: url("../../../img/trash.svg");
+  display: block;
+  margin: 0 5px 0 0;
+  width: 24px;
+  height: 24px;
+}
+
+.tool_bar_button__create{
+  background: url("../../../img/file-richtext.svg");
   display: block;
   margin: 0 5px 0 0;
   width: 24px;

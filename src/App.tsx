@@ -1,10 +1,10 @@
 import React from "react";
-import { EditorComp } from "./components/Editor/Editor";
+import { EditorView } from "./components/Editor/Editor";
 
 function App() {
   return (
     <div className="editor">
-      <EditorComp />
+      <EditorView />
     </div>
   );
 }

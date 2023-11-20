@@ -1,0 +1,15 @@
+.menu_open_button {
+  cursor: pointer;
+  text-align: left;
+  font: 400 18px/20px "Montserrat", sans-serif;
+  border-style: none;
+  background-color: #ffffff;
+  padding: 7px 0;
+  width: 100%;
+  padding: 7px 0 7px 15px;
+  border-radius: 4px;
+}
+
+.menu_open_button:hover {
+  background: rgba(221, 224, 229, 0.5);
+}

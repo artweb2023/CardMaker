@@ -1,0 +1,25 @@
+.color {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin: 0 5px 0 118px;
+    border-style: none;
+    border: 1px solid rgb(140, 137, 137);
+    box-sizing: border-box;
+    outline: none;
+}
+
+.font_size_input {
+    width: 30px;
+    height: 26px;
+    padding: 0 5px;
+    outline: none;
+    font: 400 18px/24px "Montserrat", sans-serif;
+    color: rgb(0, 0, 0);
+    margin: 0 5px 0 0;
+}
+
+.font_size_input::placeholder {
+    color: rgb(0, 0, 0);
+}
+

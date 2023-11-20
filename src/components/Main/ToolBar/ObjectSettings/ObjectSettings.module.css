@@ -1,8 +1,8 @@
-.tool_bar_properties {
+.tool_bar_settings {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 840px;
+  width: 720px;
   height: 100%;
   margin: 0 0 0 15px;
 }

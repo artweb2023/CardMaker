@@ -1,15 +1,16 @@
 import React from "react";
 import { ArtObject } from "../../../model/types";
+import { ArtSunView } from "./ArtObject/Sun";
 import styles from "./ArtObject.module.css";
 import active from "./ActiveObject.module.css";
 
 type ArtObjectProps = {
   art: ArtObject;
-  imgUrl: string;
   isSelected: boolean;
+  onClick: () => void;
 };
 
-function ArtObjectView({ art, imgUrl, isSelected }: ArtObjectProps) {
+function ArtObjectView({ art, isSelected, onClick }: ArtObjectProps) {
   const {
     width,
     height,
@@ -19,14 +20,21 @@ function ArtObjectView({ art, imgUrl, isSelected }: ArtObjectProps) {
     isSelected ? active.selected : styles.artobject
   }`;
 
+  const handleClick = () => {
+    onClick();
+  };
+
   const Style = {
     width: `${width}px`,
     height: `${height}px`,
     left: `${x}px`,
     top: `${y}px`,
-    backgroundImage: "url(" + imgUrl + ")",
   };
-  return <span className={classNames} style={Style}></span>;
+  return (
+    <div className={classNames} style={Style} onClick={handleClick}>
+      <ArtSunView />
+    </div>
+  );
 }
 
 export { ArtObjectView };

@@ -10,7 +10,7 @@ import {
 } from "../../fileUtils/fileUtils";
 import styles from "./Editor.module.css";
 
-function EditorComp() {
+function EditorView() {
   const [editorModel, setEditorModel] = React.useState<Editor>(editorData);
 
   function getEmptyEditorModel(): Editor {
@@ -51,4 +51,4 @@ function EditorComp() {
   );
 }
 
-export { EditorComp };
+export { EditorView };

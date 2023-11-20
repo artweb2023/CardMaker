@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { HeaderButton } from "./MenuBarButton/HederButton";
 import { MenuBarPencil } from "./MenuBarPencil/MenuBarPencil";
 import { HeaderLogo } from "./HeaderLogo/HeaderLogo";
@@ -12,37 +12,25 @@ type MenuFileProps = {
   resetModelHandler: () => void;
 };
 
+enum OpenMenu {
+  None,
+  File,
+  Size,
+}
+
 function Header({
   saveToFile,
   loadFromFile,
   resetModelHandler,
 }: MenuFileProps) {
-  const [isMenuFileOpen, setMenuFileOpen] = useState(false);
-  const [menuButtonClicked, setMenuFileButtonClicked] = useState(false);
+  const [openMenu, setOpenMenu] = useState(OpenMenu.None);
 
-  const [isMenuSizeOpen, setSizeMenuOpen] = useState(false);
-  const [menuButtonSizeClicked, setSizeMenuButtonCliked] = useState(false);
-
-  const FileMenuClick = () => {
-    if (menuButtonClicked) {
-      setMenuFileOpen(!isMenuFileOpen);
-      setSizeMenuOpen(false);
-      setMenuFileButtonClicked(false);
-    } else {
-      setMenuFileButtonClicked(true);
-      setSizeMenuButtonCliked(false);
-    }
+  const onClose = () => {
+    setOpenMenu(OpenMenu.None);
   };
 
-  const SizeMenuClick = () => {
-    if (menuButtonSizeClicked) {
-      setSizeMenuOpen(!isMenuSizeOpen);
-      setMenuFileOpen(false);
-      setSizeMenuButtonCliked(false);
-    } else {
-      setSizeMenuButtonCliked(true);
-      setMenuFileButtonClicked(false);
-    }
+  const toggleMenu = (menu: OpenMenu) => {
+    setOpenMenu((prev) => (prev === menu ? OpenMenu.None : menu));
   };
 
   return (
@@ -52,12 +40,12 @@ function Header({
         <HeaderButton
           text={"Файл"}
           className={"menu_bar__button"}
-          onClick={FileMenuClick}
+          onClick={() => toggleMenu(OpenMenu.File)}
         ></HeaderButton>
         <HeaderButton
           text={"Размер"}
           className={"menu_bar__button"}
-          onClick={SizeMenuClick}
+          onClick={() => toggleMenu(OpenMenu.Size)}
         ></HeaderButton>
         <MenuBarPencil
           className={"menu-bar-pencil"}
@@ -71,16 +59,13 @@ function Header({
         className={"menu_bar_button__dowload"}
       ></HeaderButton>
       <MenuFileBar
-        isOpen={isMenuFileOpen}
-        onClose={() => setMenuFileButtonClicked(false)}
+        isOpen={openMenu === OpenMenu.File}
+        onClose={onClose}
         saveToFile={saveToFile}
         loadFromFile={loadFromFile}
         resetModelHandler={resetModelHandler}
       />
-      <MenuSize
-        isOpen={isMenuSizeOpen}
-        onClose={() => setSizeMenuButtonCliked(false)}
-      />
+      <MenuSize isOpen={openMenu === OpenMenu.Size} onClose={onClose} />
     </header>
   );
 }

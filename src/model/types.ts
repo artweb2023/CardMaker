@@ -12,7 +12,7 @@ export type Size = {
   height: number;
 };
 
-export type TextInfo = {
+type TextInfo = {
   id: string;
   type: "text";
   value: string;
@@ -25,7 +25,7 @@ export type TextInfo = {
   position: Position;
 };
 
-export type Image = {
+type Image = {
   id: string;
   type: "image";
   source: "bs64" | "link";
@@ -34,7 +34,7 @@ export type Image = {
   position: Position;
 };
 
-export type ArtObject = {
+type ArtObject = {
   id: string;
   type: "ArtObject";
   width: number;
@@ -44,18 +44,18 @@ export type ArtObject = {
   position: Position;
 };
 
-export type ActiveObjects = Array<string>;
+type ActiveObjects = Array<string>;
 
-export type Filter = {
+type Filter = {
   color: Color;
 };
 
-export type CommandHistory = {
+type CommandHistory = {
   commandType: string;
   timestamp: Date;
 };
 
-export type CardTemplate = {
+type CardTemplate = {
   id: string;
   description: string;
   elements: Array<TextInfo | Image | ArtObject>;
@@ -63,7 +63,7 @@ export type CardTemplate = {
   size: Size;
 };
 
-export type Canvas = {
+type Canvas = {
   size: Size;
   background: Color | Image;
   elements: Array<TextInfo | Image | ArtObject>;
@@ -77,4 +77,14 @@ type Editor = {
   history: CommandHistory;
 };
 
-export type { Editor }
+export type {
+  TextInfo,
+  Image,
+  ArtObject,
+  ActiveObjects,
+  Filter,
+  CommandHistory,
+  CardTemplate,
+  Canvas,
+  Editor,
+};

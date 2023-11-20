@@ -1,0 +1,89 @@
+.font_size_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 14px;
+    background: #edeff2;
+    cursor: pointer;
+}
+
+.font_size_button_up_background {
+    background: url("../../../../../../img/chevron-compact-up.svg");
+    width: 16px;
+    height: 12px;
+}
+
+.font_size_button_down_background {
+    background: url("../../../../../../img/chevron-compact-down.svg");
+    width: 16px;
+    height: 12px;
+}
+
+.button {
+    width: 30px;
+    height: 30px;
+    padding: 7px;
+    border-style: none;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #f6f6f6;
+    border-radius: 5px;
+}
+
+.button_align_background{
+    background: url("../../../../../../img/justify.svg");
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+.button_bold_background{
+    background: url("../../../../../../img/type-bold.svg");
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+.button_italic_background {
+    background: url("../../../../../../img/type-italic.svg");
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+.button_underline_background {
+    background: url("../../../../../../img/type-underline.svg");
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+.font_family {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 4px;
+    padding: 5px 10px;
+    border-style: none;
+    background: none;
+    font: 400 16px/18px "Lato", sans-serif;
+    color: #1c2127;
+    margin: 0 10px 0 0;
+    cursor: pointer;
+}
+
+.font_family:hover {
+    background-color: #f6f6f6;
+    border-radius: 4px;
+}
+
+.font_family_icons{
+    width: 16px;
+    height: 16px;
+    background: url("../../../../../../img/caret-down-fill.svg");
+    margin: 0 0 0 7px;
+}

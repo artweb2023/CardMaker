@@ -5,3 +5,8 @@
   color: #ffc322;
   text-decoration: none;
 }
+
+@font-face {
+  font-family: 'Crete Round';
+  src: local('Crete Round'), url("../../../fonts/CreteRound-Regular.ttf") format('truetype');
+}

@@ -9,17 +9,21 @@ import {
   Image,
   Canvas,
 } from "../../../model/types";
-import sun from "./ArtObject/sun.svg";
 import styles from "./Canvas.module.css";
 
 type CanvasDataProps = {
   canvasData: Canvas;
+  onElementClick: (elementId: string) => void;
+  activeElement: string | null;
 };
 
-function CanvasView({ canvasData }: CanvasDataProps) {
+function CanvasView({
+  canvasData,
+  onElementClick,
+  activeElement,
+}: CanvasDataProps) {
   const {
     elements,
-    active: activeBlocks,
     size: { width, height },
     background,
   } = canvasData;
@@ -32,10 +36,14 @@ function CanvasView({ canvasData }: CanvasDataProps) {
         ? (background as Color).color
         : `url(${background.data})`,
   };
+
   return (
     <div className={styles.canvas} style={canvasStyle}>
       {elements.map((element, index) => {
-        const isBlockSelected = activeBlocks.includes(element.id);
+        const isBlockSelected = activeElement === element.id;
+        const handleClick = () => {
+          onElementClick(element.id);
+        };
         switch (element.type) {
           case "text": {
             const textElement = element as TextInfo;
@@ -44,6 +52,7 @@ function CanvasView({ canvasData }: CanvasDataProps) {
                 key={index}
                 text={textElement}
                 isSelected={isBlockSelected}
+                onClick={handleClick}
               />
             );
           }
@@ -54,6 +63,7 @@ function CanvasView({ canvasData }: CanvasDataProps) {
                 key={index}
                 imageData={imageElement}
                 isSelected={isBlockSelected}
+                onClick={handleClick}
               />
             );
           }
@@ -63,8 +73,8 @@ function CanvasView({ canvasData }: CanvasDataProps) {
               <ArtObjectView
                 key={index}
                 art={artObjectElement}
-                imgUrl={sun}
                 isSelected={isBlockSelected}
+                onClick={handleClick}
               />
             );
           }

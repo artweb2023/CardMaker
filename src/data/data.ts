@@ -13,15 +13,15 @@ import {
 const textInfoData: TextInfo = {
   id: "idText1",
   type: "text",
-  value: "Солнце светит",
-  fontSize: 16,
+  value: "Восход",
+  fontSize: 30,
   fontFamily: "Arial",
   color: {
-    color: "#008000",
+    color: "#FFFF00",
   },
   bold: true,
   coursive: false,
-  underline: true,
+  underline: false,
   position: {
     x: 350,
     y: 20,

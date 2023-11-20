@@ -1,5 +1,5 @@
 import React from "react";
-import { HeaderButton } from "../MenuBarButton/HederButton";
+import { ButtonFileMenu } from "./MenuFileButton";
 import style from "./MenuFileBar.module.css";
 
 type MenuProps = {
@@ -20,33 +20,26 @@ function MenuFileBar({
   if (!isOpen) {
     return null;
   }
+  const handleLoadFromFile = () => {
+    loadFromFile();
+    onClose();
+  };
+
+  const handleSaveToFile = () => {
+    saveToFile();
+    onClose();
+  };
+
+  const handleResetModelHandler = () => {
+    resetModelHandler();
+    onClose();
+  };
 
   return (
     <div className={style.menu}>
-      <HeaderButton
-        text={"Открыть"}
-        className={"menu_open_button"}
-        onClick={() => {
-          loadFromFile();
-          onClose();
-        }}
-      />
-      <HeaderButton
-        text={"Сохранить"}
-        className={"menu_open_button"}
-        onClick={() => {
-          saveToFile();
-          onClose;
-        }}
-      />
-      <HeaderButton
-        text={"Удалить"}
-        className={"menu_open_button"}
-        onClick={() => {
-          resetModelHandler();
-          onClose;
-        }}
-      />
+      <ButtonFileMenu text={"Открыть"} onClick={handleLoadFromFile} />
+      <ButtonFileMenu text={"Сохранить"} onClick={handleSaveToFile} />
+      <ButtonFileMenu text={"Удалить"} onClick={handleResetModelHandler} />
     </div>
   );
 }

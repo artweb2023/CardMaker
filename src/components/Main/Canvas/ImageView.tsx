@@ -6,9 +6,10 @@ import active from "./ActiveObject.module.css";
 type ImageSourceProps = {
   imageData: Image;
   isSelected: boolean;
+  onClick: () => void;
 };
 
-function ImageView({ imageData, isSelected }: ImageSourceProps) {
+function ImageView({ imageData, isSelected, onClick }: ImageSourceProps) {
   const {
     size: { width, height },
     position: { x, y },
@@ -19,6 +20,10 @@ function ImageView({ imageData, isSelected }: ImageSourceProps) {
     isSelected ? active.selected : styles.img
   }`;
 
+  const handleClick = () => {
+    onClick();
+  };
+
   const sizeStyles = {
     width: `${width}px`,
     height: `${height}px`,
@@ -26,7 +31,14 @@ function ImageView({ imageData, isSelected }: ImageSourceProps) {
     left: `${x}px`,
   };
 
-  return <img className={classNames} src={data} style={sizeStyles} />;
+  return (
+    <img
+      className={classNames}
+      src={data}
+      style={sizeStyles}
+      onClick={handleClick}
+    />
+  );
 }
 
 export { ImageView };

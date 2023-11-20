@@ -35,7 +35,7 @@ function MenuBarPencil({
           placeholder={text}
         />
       ) : (
-        <p className={style[textClass]}> {inputText} </p>
+        <p className={style[textClass]}>{inputText}</p>
       )}
       <button className={style[iconClass]} onClick={handleButtonClick}></button>
     </div>

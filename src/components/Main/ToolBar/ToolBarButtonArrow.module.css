@@ -1,4 +1,5 @@
 .tool_bar__left {
+  border-style: none;
   background: url("../../../img/left_arrow.svg");
   width: 24px;
   height: 24px;
@@ -7,6 +8,7 @@
 }
 
 .tool_bar__right {
+  border-style: none;
   background: url("../../../img/right_arrow.svg");
   width: 24px;
   height: 24px;

@@ -1,0 +1,30 @@
+.settings {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.font_size{
+    display: flex;
+    flex-direction: row;
+    margin: 0 10px 0 0;
+}
+
+.font_size_buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    width: 30px;
+    height: 30px;
+}
+
+.button_group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 146px;
+}
+

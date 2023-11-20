@@ -1,0 +1,9 @@
+.textarea{
+    display: block;
+    position: relative;
+    border: none;
+    background: none;
+    outline: none;
+    resize: none;
+    overflow: hidden; 
+}

@@ -4,7 +4,6 @@
 }
 
 .selected {
-  border: 2px solid #0827f5;
-  padding: 3px 3px;
+  border: 2px solid hsl(232, 94%, 50%);
   cursor: pointer;
 }

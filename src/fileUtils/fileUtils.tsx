@@ -2,7 +2,10 @@ import { Editor } from "../model/types";
 
 function saveModelToLocal(model: Editor) {
   const text = JSON.stringify(model);
-  const name = "sample.json";
+  const tagValue = document.querySelector(
+    ".MenuBarPencil_menu-bar-pencil__text__NSDLu",
+  );
+  const name = tagValue?.textContent + ".json";
   const type = "text/plain";
   const a = document.createElement("a");
   const file = new Blob([text], { type: type });
