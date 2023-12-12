@@ -1,4 +1,3 @@
-import React from "react";
 import { Text } from "./TextView";
 import { ImageView } from "./ImageView";
 import { ArtObjectView } from "./ArtObjectView";

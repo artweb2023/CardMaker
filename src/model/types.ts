@@ -1,13 +1,13 @@
-export type Position = {
+type Position = {
   x: number;
   y: number;
 };
 
-export type Color = {
+type Color = {
   color: string;
 };
 
-export type Size = {
+type Size = {
   width: number;
   height: number;
 };
@@ -23,6 +23,7 @@ type TextInfo = {
   coursive: boolean;
   underline: boolean;
   position: Position;
+  size : Size;
 };
 
 type Image = {
@@ -37,8 +38,7 @@ type Image = {
 type ArtObject = {
   id: string;
   type: "ArtObject";
-  width: number;
-  height: number;
+  size : Size;
   border_color: Color;
   background: Color;
   position: Position;
@@ -79,6 +79,7 @@ type Editor = {
 
 export type {
   TextInfo,
+  Color,
   Image,
   ArtObject,
   ActiveObjects,

@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./ObjectSettings.module.css";
 import { TextSettings } from "./TextSettings/TextSettings";
-import { ImageSetting } from "./ImageSettings/ImageSettings";
 import { ArtObjectSettings } from "./ArtObjectSettings/ArtObjectSettings";
 import { TextInfo, Image, ArtObject } from "../../../../model/types";
 
@@ -20,9 +19,6 @@ function ObjectSettings({ activeElement, elements }: ObjectSettingsProps) {
   switch (selectedElement?.type) {
     case "text":
       elementSettings = <TextSettings textData={selectedElement as TextInfo} />;
-      break;
-    case "image":
-      elementSettings = <ImageSetting imageData={selectedElement as Image} />;
       break;
     case "ArtObject":
       elementSettings = (

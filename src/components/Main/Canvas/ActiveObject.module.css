@@ -1,9 +1,0 @@
-.container {
-  display: inline-block;
-  position: absolute;
-}
-
-.selected {
-  border: 2px solid hsl(232, 94%, 50%);
-  cursor: pointer;
-}

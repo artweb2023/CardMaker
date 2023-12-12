@@ -12,11 +12,10 @@ function Main({ canvasInfo }: CanvasDataProps) {
   const [activeElement, setActiveElement] = useState<string | null>(null);
 
   const handleElementClick = (elementId: string) => {
-    setActiveElement(() => {
-      return elementId;
-    });
+    setActiveElement((prevActiveElement) =>
+      prevActiveElement === elementId ? null : elementId,
+    );
   };
-
   let elements: Array<TextInfo | Image | ArtObject> = [];
 
   if (activeElement !== null) {

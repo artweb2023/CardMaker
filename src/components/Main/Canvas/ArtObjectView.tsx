@@ -1,8 +1,8 @@
-import React from "react";
+import { useRef, useState } from "react";
 import { ArtObject } from "../../../model/types";
 import { ArtSunView } from "./ArtObject/Sun";
-import styles from "./ArtObject.module.css";
-import active from "./ActiveObject.module.css";
+import { ActiveObjectView } from "./ActiveObject/ActiveObjectView";
+import { useDragAndDrop } from "../../../hook/useDND";
 
 type ArtObjectProps = {
   art: ArtObject;
@@ -11,29 +11,34 @@ type ArtObjectProps = {
 };
 
 function ArtObjectView({ art, isSelected, onClick }: ArtObjectProps) {
-  const {
-    width,
-    height,
-    position: { x, y },
-  } = art;
-  const classNames = `${active.container} ${
-    isSelected ? active.selected : styles.artobject
-  }`;
+  const { size, position } = art;
 
-  const handleClick = () => {
-    onClick();
+  const ref = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState(position);
+  const { isDragging } = useDragAndDrop(
+    { elementRef: ref, isActive: isSelected },
+    {
+      onPositionChange: (delta) => {
+        setPos({ x: pos.x + delta.x, y: pos.y + delta.y });
+      },
+    },
+  );
+
+  const containerStyle = {
+    cursor: isDragging ? "grab" : "grabbing",
   };
 
-  const Style = {
-    width: `${width}px`,
-    height: `${height}px`,
-    left: `${x}px`,
-    top: `${y}px`,
-  };
   return (
-    <div className={classNames} style={Style} onClick={handleClick}>
-      <ArtSunView />
-    </div>
+    <ActiveObjectView
+      isSelected={isSelected}
+      position={pos}
+      size={size}
+      className="artobject"
+    >
+      <div onClick={onClick} ref={ref} style={containerStyle}>
+        <ArtSunView />
+      </div>
+    </ActiveObjectView>
   );
 }
 

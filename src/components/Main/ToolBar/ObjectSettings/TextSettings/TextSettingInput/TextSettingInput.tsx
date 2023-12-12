@@ -19,7 +19,7 @@ function TextSettingsInput({
       className={styles[className]}
       type={type}
       placeholder={placeholder}
-      value={value}
+      defaultValue={value}
     />
   );
 }

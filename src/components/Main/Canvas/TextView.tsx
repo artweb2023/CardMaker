@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useRef, useState } from "react";
 import { TextInfo } from "../../../model/types";
 import styles from "./TextView.module.css";
-import active from "./ActiveObject.module.css";
+import { useDragAndDrop } from "../../../hook/useDND";
+import { ActiveObjectView } from "./ActiveObject/ActiveObjectView";
 
 type TextDataProps = {
   text: TextInfo;
@@ -11,61 +12,63 @@ type TextDataProps = {
 
 function Text({ text, isSelected, onClick }: TextDataProps) {
   const {
-    position: { x, y },
+    position,
     fontSize,
     fontFamily,
     color: { color },
     bold,
     coursive,
     underline,
-    value,
+    size,
   } = text;
+  const [value, setValue] = useState(text.value);
+  const ref = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState(position);
+  const { isDragging } = useDragAndDrop(
+    { elementRef: ref, isActive: isSelected },
+    {
+      onPositionChange: (delta) => {
+        setPos({ x: pos.x + delta.x, y: pos.y + delta.y });
+      },
+    },
+  );
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [inputText, setInputText] = useState(value);
-
-  const handleButtonClick = () => {
-    setIsEditing(!isEditing);
-    onClick();
+  const containerStyle = {
+    cursor: isDragging ? "grab" : "grabbing",
   };
-  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputText(event.target.value);
-  };
-
-  const classNames = `${active.container} ${isSelected ? active.selected : ""}`;
-
   const textStyle = {
-    left: `${x}px`,
-    top: `${y}px`,
-    fontSize: `${fontSize}px`,
-    fontFamily: fontFamily,
-    color: color,
+    fontSize,
+    fontFamily,
+    color,
     fontWeight: bold ? "bold" : "normal",
     fontStyle: coursive ? "italic" : "normal",
     textDecoration: underline ? "underline" : "none",
   };
 
   return (
-    <div>
-      {isEditing ? (
+    <ActiveObjectView
+      isSelected={isSelected}
+      position={pos}
+      size={size}
+      className={"textarea"}
+    >
+      <div
+        onClick={onClick}
+        className={styles.container}
+        style={containerStyle}
+        ref={ref}
+      >
         <textarea
-          className={`${styles.textarea} ${classNames}`}
+          className={`${styles.textarea}`}
           style={textStyle}
-          value={inputText}
-          onChange={handleInputChange}
+          value={value}
           placeholder={value}
-          onClick={onClick}
-        >
-          {isSelected && null}
-          {inputText}
-        </textarea>
-      ) : (
-        <p className={classNames} style={textStyle} onClick={handleButtonClick}>
-          {isSelected && null}
-          {inputText}
-        </p>
-      )}
-    </div>
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+        />
+      </div>
+    </ActiveObjectView>
   );
 }
 

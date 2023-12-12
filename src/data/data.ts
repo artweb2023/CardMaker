@@ -26,6 +26,10 @@ const textInfoData: TextInfo = {
     x: 350,
     y: 20,
   },
+  size: {
+    width: 200,
+    height: 50,
+  },
 };
 
 const imageData1: Image = {
@@ -61,8 +65,10 @@ const imageData2: Image = {
 const artObjectData: ArtObject = {
   id: "idArtObject1",
   type: "ArtObject",
-  width: 45,
-  height: 45,
+  size: {
+    width: 45,
+    height: 45,
+  },
   border_color: { color: "#cdcdcd" },
   background: { color: "#02FA00" },
   position: {

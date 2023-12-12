@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: local('Montserrat'), url("../../../../../fonts/Montserrat-VariableFont_wght.ttf") format('truetype');
+}
+
+.button {
+    display: flex;
+    margin: 0 0 0 118px;
+    flex-direction: row;
+    align-items: center;
+    border-style: none;
+    background: #FFFFFF;
+    font: 400 16px/18px "Montserrat", sans-serif;
+}
+
+.input {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin: 0 0 0 10px;
+    border-style: none;
+    border: 1px solid rgb(140, 137, 137);
+    box-sizing: border-box;
+    outline: none;
+}
