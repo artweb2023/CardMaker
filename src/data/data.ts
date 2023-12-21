@@ -65,12 +65,13 @@ const imageData2: Image = {
 const artObjectData: ArtObject = {
   id: "idArtObject1",
   type: "ArtObject",
+  value: 10,
   size: {
     width: 45,
     height: 45,
   },
-  border_color: { color: "#cdcdcd" },
-  background: { color: "#02FA00" },
+  border_color: { color: "#ffff00" },
+  background: { color: "none" },
   position: {
     x: 380,
     y: 210,
@@ -84,6 +85,7 @@ const filterData: Filter = {
 };
 
 const canvasData: Canvas = {
+  id: "sunrise",
   size: {
     width: 800,
     height: 600,

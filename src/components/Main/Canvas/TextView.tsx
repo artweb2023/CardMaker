@@ -1,7 +1,6 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { TextInfo } from "../../../model/types";
 import styles from "./TextView.module.css";
-import { useDragAndDrop } from "../../../hook/useDND";
 import { ActiveObjectView } from "./ActiveObject/ActiveObjectView";
 
 type TextDataProps = {
@@ -22,20 +21,7 @@ function Text({ text, isSelected, onClick }: TextDataProps) {
     size,
   } = text;
   const [value, setValue] = useState(text.value);
-  const ref = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState(position);
-  const { isDragging } = useDragAndDrop(
-    { elementRef: ref, isActive: isSelected },
-    {
-      onPositionChange: (delta) => {
-        setPos({ x: pos.x + delta.x, y: pos.y + delta.y });
-      },
-    },
-  );
 
-  const containerStyle = {
-    cursor: isDragging ? "grab" : "grabbing",
-  };
   const textStyle = {
     fontSize,
     fontFamily,
@@ -48,26 +34,20 @@ function Text({ text, isSelected, onClick }: TextDataProps) {
   return (
     <ActiveObjectView
       isSelected={isSelected}
-      position={pos}
+      position={position}
       size={size}
       className={"textarea"}
     >
-      <div
+      <textarea
+        className={`${styles.textarea}`}
+        style={textStyle}
+        value={value}
+        placeholder={value}
         onClick={onClick}
-        className={styles.container}
-        style={containerStyle}
-        ref={ref}
-      >
-        <textarea
-          className={`${styles.textarea}`}
-          style={textStyle}
-          value={value}
-          placeholder={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-      </div>
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
     </ActiveObjectView>
   );
 }

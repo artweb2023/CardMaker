@@ -1,7 +1,29 @@
+enum ArtObjectValue {
+  Chat,
+  Flower,
+  Gift,
+  Thumbs,
+  House,
+  Moon,
+  Polygon,
+  Snow,
+  Start,
+  Heart,
+  Sun,
+  Tree,
+}
+
 type Position = {
   x: number;
   y: number;
 };
+
+type Background = {
+  source: "bs64" | "link";
+  src: string;
+};
+
+type BackgroundCanvas = Array<Background>;
 
 type Color = {
   color: string;
@@ -23,7 +45,7 @@ type TextInfo = {
   coursive: boolean;
   underline: boolean;
   position: Position;
-  size : Size;
+  size: Size;
 };
 
 type Image = {
@@ -38,7 +60,8 @@ type Image = {
 type ArtObject = {
   id: string;
   type: "ArtObject";
-  size : Size;
+  value: ArtObjectValue;
+  size: Size;
   border_color: Color;
   background: Color;
   position: Position;
@@ -64,6 +87,7 @@ type CardTemplate = {
 };
 
 type Canvas = {
+  id: string;
   size: Size;
   background: Color | Image;
   elements: Array<TextInfo | Image | ArtObject>;
@@ -74,12 +98,15 @@ type Canvas = {
 type Editor = {
   canvas: Array<Canvas>;
   template: Array<CardTemplate>;
-  history: CommandHistory;
+  history: CommandHistory; //дополнительное поле
 };
 
 export type {
+  Background,
+  BackgroundCanvas,
   TextInfo,
   Color,
+  Size,
   Image,
   ArtObject,
   ActiveObjects,

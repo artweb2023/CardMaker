@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import active from "./ActiveObject.module.css";
+import { Color } from "../../../../model/types";
 import { useDragAndDrop } from "../../../../hook/useDND";
 
 type ActiveObjectViewProps = {
@@ -8,6 +9,7 @@ type ActiveObjectViewProps = {
   position: { x: number; y: number };
   size: { width: number; height: number };
   children: React.ReactNode;
+  background?: Color;
 };
 
 function ActiveObjectView({
@@ -16,6 +18,7 @@ function ActiveObjectView({
   children,
   position: { x, y },
   size: { width, height },
+  background,
 }: ActiveObjectViewProps) {
   const classNames = `${active.container} ${
     isSelected ? active.selected : active[className]
@@ -30,19 +33,33 @@ function ActiveObjectView({
   const refResizeMiddleLeft = useRef<HTMLDivElement>(null);
   const refResizeDownLeft = useRef<HTMLDivElement>(null);
   const refResizeUpLeft = useRef<HTMLDivElement>(null);
-  const deltaTop = useRef(0);
-  const deltaLeft = useRef(0);
-  const [blockSize, setBlockSize] = useState({ width, height });
+  const [blockSize, setBlockSize] = useState({ width, height, x, y });
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  const { isDragging } = useDragAndDrop(
+    { elementRef: ref, isActive: isSelected },
+    {
+      onPositionChange: (delta) => {
+        setBlockSize({
+          width: blockSize.width,
+          height: blockSize.height,
+          x: blockSize.x + delta.x,
+          y: blockSize.y + delta.y,
+        });
+      },
+    },
+  );
 
   useDragAndDrop(
     { elementRef: refResizeUpLeft, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        deltaLeft.current = delta.x;
-        deltaTop.current = delta.y;
         setBlockSize({
           width: blockSize.width - delta.x,
           height: blockSize.height - delta.y,
+          x: blockSize.x + delta.x,
+          y: blockSize.y + delta.y,
         });
       },
     },
@@ -52,10 +69,11 @@ function ActiveObjectView({
     { elementRef: refResizeDownLeft, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        deltaLeft.current = delta.x;
         setBlockSize({
           width: blockSize.width - delta.x,
           height: blockSize.height + delta.y,
+          x: blockSize.x + delta.x,
+          y: blockSize.y,
         });
       },
     },
@@ -65,10 +83,11 @@ function ActiveObjectView({
     { elementRef: refResizeMiddleLeft, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        deltaLeft.current = delta.x;
         setBlockSize({
           width: blockSize.width - delta.x,
           height: blockSize.height,
+          x: blockSize.x + delta.x,
+          y: blockSize.y,
         });
       },
     },
@@ -78,10 +97,11 @@ function ActiveObjectView({
     { elementRef: refResizeUpRight, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        deltaTop.current = delta.y;
         setBlockSize({
           width: blockSize.width + delta.x,
           height: blockSize.height - delta.y,
+          x: blockSize.x,
+          y: blockSize.y + delta.y,
         });
       },
     },
@@ -94,6 +114,8 @@ function ActiveObjectView({
         setBlockSize({
           width: blockSize.width,
           height: blockSize.height + delta.y,
+          x: blockSize.x,
+          y: blockSize.y,
         });
       },
     },
@@ -106,6 +128,8 @@ function ActiveObjectView({
         setBlockSize({
           width: blockSize.width + delta.x,
           height: blockSize.height,
+          x: blockSize.x,
+          y: blockSize.y,
         });
       },
     },
@@ -118,6 +142,8 @@ function ActiveObjectView({
         setBlockSize({
           width: blockSize.width + delta.x,
           height: blockSize.height + delta.y,
+          x: blockSize.x,
+          y: blockSize.y,
         });
       },
     },
@@ -127,10 +153,11 @@ function ActiveObjectView({
     { elementRef: refResizeUpMiddle, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        deltaTop.current = delta.y;
         setBlockSize({
           width: blockSize.width,
           height: blockSize.height - delta.y,
+          x: blockSize.x,
+          y: blockSize.y + delta.y,
         });
       },
     },
@@ -139,8 +166,10 @@ function ActiveObjectView({
   const activeStyles = {
     width: blockSize.width,
     height: blockSize.height,
-    left: x + deltaLeft.current,
-    top: y + deltaTop.current,
+    left: blockSize.x,
+    top: blockSize.y,
+    cursor: isDragging ? "grabbing" : "grab",
+    background: background?.color,
   };
 
   const resizeMiddleRight = {
@@ -192,7 +221,7 @@ function ActiveObjectView({
   };
 
   return (
-    <div className={classNames} style={activeStyles}>
+    <div className={classNames} style={activeStyles} ref={ref}>
       {isSelected && (
         <div
           className={active.resize}

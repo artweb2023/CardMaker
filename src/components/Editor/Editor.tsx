@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Header } from "../Header/Header";
 import { SideBar } from "../Sidebar/SideBar";
 import { Main } from "../Main/Main";
@@ -11,7 +11,7 @@ import {
 import styles from "./Editor.module.css";
 
 function EditorView() {
-  const [editorModel, setEditorModel] = React.useState<Editor>(editorData);
+  const [editorModel, setEditorModel] = useState<Editor>(editorData);
 
   function getEmptyEditorModel(): Editor {
     return {
@@ -33,7 +33,6 @@ function EditorView() {
 
   const resetModelHandler = () => {
     setEditorModel(getEmptyEditorModel());
-    console.log("Удалиить");
   };
 
   return (

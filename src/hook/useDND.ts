@@ -33,6 +33,9 @@ function useDragAndDrop(
     };
 
     const onMouseDown = (e: MouseEvent) => {
+      if (e.defaultPrevented) {
+        return;
+      }
       if (elementRef.current) {
         e.preventDefault();
         startPos.current = {
@@ -46,6 +49,7 @@ function useDragAndDrop(
         }
       }
     };
+
     if (element && isActive) {
       element.addEventListener("mousedown", onMouseDown);
     }
@@ -54,7 +58,7 @@ function useDragAndDrop(
         element.removeEventListener("mousedown", onMouseDown);
       }
     };
-  }, [isDragging, isActive, elementRef, options, startPos]);
+  }, [elementRef, isActive, options]);
 
   return { isDragging };
 }
