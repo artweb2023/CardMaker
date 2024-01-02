@@ -10,6 +10,16 @@ import {
   TextInfo,
 } from "../model/types";
 
+function createChangeAcativeElement(canvasId: string, elementId: string) {
+  return {
+    type: EditorActions.CHANGE_ACATIVE_ELEMENT,
+    payload: {
+      canvasId,
+      elementId,
+    },
+  };
+}
+
 function createRemoveCanvasElement(canvasId: string, elementId: string) {
   return {
     type: EditorActions.DELETE_CANVAS_ELEMENT,
@@ -141,4 +151,5 @@ export {
   createChangeActiveCanvasAction,
   createAddCanvasElement,
   createRemoveCanvasElement,
+  createChangeAcativeElement,
 };

@@ -9,7 +9,6 @@ import { PanelLoadView } from "./PanelLoadView";
 function PanelBackgroundView() {
   const editorInfo = useAppSelector(selectEditor);
   const currentActiveCanvas = editorInfo.active;
-  console.log(currentActiveCanvas);
   const activeCanvas = editorInfo.canvas.find(
     (canvas) => canvas.id === currentActiveCanvas,
   );

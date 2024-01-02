@@ -21,6 +21,7 @@ enum EditorActions {
   LOAD_EDITOR = "LOAD_EDITOR",
   SAVE_PHOTO = "SAVE_PHOTO",
   CHANGE_ACTIVE_CANVAS = "CHANGE_ACTIVE_CANVAS",
+  CHANGE_ACATIVE_ELEMENT = "CHANGE_ACATIVE_ELEMENT",
   CHANGE_SIZE = "CHANGE_SIZE",
   CHANGE_BACKGROUND = "CHANGE_BACKGROUND",
   CHANGE_ORDER = "CHANGE_ORDER",
@@ -28,6 +29,14 @@ enum EditorActions {
   UNDO = "UNDO",
   REDO = "REDO",
 }
+
+type ChangeAcativeElement = {
+  type: EditorActions.CHANGE_ACATIVE_ELEMENT;
+  payload: {
+    canvasId: string;
+    elementId: string;
+  };
+};
 
 type DeleteCanvasElement = {
   type: EditorActions.DELETE_CANVAS_ELEMENT;
@@ -138,6 +147,7 @@ type Action =
   | AddFilterAction
   | AddCanvasElement
   | DeleteCanvasElement
+  | ChangeAcativeElement
   | SavePhotoAction;
 
 export { EditorActions, type Action };

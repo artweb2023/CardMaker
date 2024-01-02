@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ToolBarButtonArrow.module.css";
 
 type ButtonArrowProps = {

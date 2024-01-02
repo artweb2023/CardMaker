@@ -9,6 +9,22 @@ const history = createHistory<Editor>(initData);
 
 const editorReducer = (state: Editor = initData, action: Action) => {
   switch (action.type) {
+    case EditorActions.CHANGE_ACATIVE_ELEMENT: {
+      const { canvasId, elementId } = action.payload;
+      const newActive = state.canvas.map((canvas) => {
+        if (canvas.id === canvasId) {
+          return {
+            ...canvas,
+            active: elementId,
+          };
+        }
+        return canvas;
+      });
+      return {
+        ...state,
+        canvas: newActive,
+      };
+    }
     case EditorActions.DELETE_CANVAS_ELEMENT: {
       const { canvasId, elementId } = action.payload;
       const newState = state.canvas.map((canvas) => {

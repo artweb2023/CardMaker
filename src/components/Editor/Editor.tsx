@@ -4,8 +4,8 @@ import { useAppActions } from "../../redux/hooks";
 import { Header } from "../Header/Header";
 import { SideBar } from "../Sidebar/SideBar";
 import { Main } from "../Main/Main";
-import { Editor } from "../../model/types";
 import { saveModelToLocal, loadModelFromLocal } from "../../utils/fileUtils";
+import { getEditorModel } from "../../utils/utils";
 import styles from "./Editor.module.css";
 
 function EditorView() {
@@ -16,15 +16,6 @@ function EditorView() {
     createEmptyModel,
     createChangeActiveCanvasAction,
   } = useAppActions();
-
-  function getEmptyEditorModel(): Editor {
-    return {
-      canvas: [],
-      template: editorModel.template,
-      upload: [],
-      active: "",
-    };
-  }
 
   const saveToFile = () => {
     saveModelToLocal(editorModel);
@@ -37,7 +28,7 @@ function EditorView() {
   };
 
   const resetModelHandler = () => {
-    const emptyModel = getEmptyEditorModel();
+    const emptyModel = getEditorModel();
     createSaveCanvasAction(emptyModel);
     createLoadCanvas(emptyModel);
     createEmptyModel(emptyModel);

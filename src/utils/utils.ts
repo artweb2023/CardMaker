@@ -74,7 +74,7 @@ function getNewImageElement(data: Photo): Image {
     type: "image",
     data,
     size: { width: 100, height: 100 },
-    position: { x: 400, y: 300 },
+    position: { x: 310, y: 250 },
   };
 }
 
