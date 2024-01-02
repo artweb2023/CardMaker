@@ -13,7 +13,7 @@ const useAppActions = () => {
     {
       ...EditorActionsCreator,
     },
-    dispatch
+    dispatch,
   );
 };
 

@@ -18,7 +18,7 @@ function ImageView({ imageData, isSelected, onClick }: ImageSourceProps) {
       size={size}
       className="image"
     >
-      <img className={styles.image} src={data} onClick={onClick} />
+      <img className={styles.image} src={data.src} onClick={onClick} />
     </ActiveObjectView>
   );
 }

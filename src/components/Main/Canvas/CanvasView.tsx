@@ -4,6 +4,7 @@ import { ArtObjectView } from "./ArtObjectView";
 import {
   Color,
   ArtObject,
+  Photo,
   TextInfo,
   Image,
   Canvas,
@@ -14,30 +15,44 @@ type CanvasDataProps = {
   canvasData: Canvas;
   onElementClick: (elementId: string) => void;
   activeElement: string | null;
+  isSelected: boolean;
+  onSelectCanvas: () => void;
 };
 
 function CanvasView({
   canvasData,
   onElementClick,
   activeElement,
+  isSelected,
+  onSelectCanvas,
 }: CanvasDataProps) {
+  if (!canvasData) {
+    return null;
+  }
   const {
     elements,
     size: { width, height },
     background,
   } = canvasData;
-
   const canvasStyle = {
-    width: `${width}px`,
-    height: `${height}px`,
-    background:
-      background instanceof Object && "color" in background
-        ? (background as Color).color
-        : `url(${background.data})`,
+    width,
+    height,
+    ...(background instanceof Object && "color" in background
+      ? { backgroundColor: (background as Color).color }
+      : { backgroundImage: `url(${(background as Photo).src})` }),
+    ...(background instanceof Object &&
+      !("color" in background) && {
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }),
   };
+  const classNames = `${styles.canvas} ${
+    isSelected ? styles.selected : styles.canvas
+  }
+  `;
 
   return (
-    <div className={styles.canvas} style={canvasStyle}>
+    <div className={classNames} style={canvasStyle} onClick={onSelectCanvas}>
       {elements.map((element, index) => {
         const isBlockSelected = activeElement === element.id;
         const handleClick = () => {

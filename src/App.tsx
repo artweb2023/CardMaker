@@ -1,9 +1,9 @@
-import React from "react";
 import { EditorView } from "./components/Editor/Editor";
+import styles from "./app.module.css";
 
 function App() {
   return (
-    <div className="editor">
+    <div className={styles.editor}>
       <EditorView />
     </div>
   );

@@ -4,6 +4,9 @@ import { MenuBarPencil } from "./MenuBarPencil/MenuBarPencil";
 import { HeaderLogo } from "./HeaderLogo/HeaderLogo";
 import { MenuFileBar } from "./MenuFileBar/MenuFileBar";
 import { MenuSize } from "./MenuSizeBar/MenuSize";
+import { useAppActions } from "../../redux/hooks";
+import { selectEditor } from "../../redux/selectors";
+import { useSelector } from "react-redux";
 import style from "./Header.module.css";
 
 type MenuFileProps = {
@@ -24,6 +27,12 @@ function Header({
   resetModelHandler,
 }: MenuFileProps) {
   const [openMenu, setOpenMenu] = useState(OpenMenu.None);
+  const editorModel = useSelector(selectEditor);
+  const { createDeleteCanvas } = useAppActions();
+  const activeCanvas = editorModel.active;
+  const deleteCanvas = () => {
+    if (activeCanvas !== null) createDeleteCanvas(activeCanvas);
+  };
 
   const onClose = () => {
     setOpenMenu(OpenMenu.None);
@@ -47,6 +56,11 @@ function Header({
           className={"menu_bar__button"}
           onClick={() => toggleMenu(OpenMenu.Size)}
         ></HeaderButton>
+        <HeaderButton
+          text={"Удалить Холст"}
+          className={"menu_bar__button"}
+          onClick={deleteCanvas}
+        ></HeaderButton>
         <MenuBarPencil
           className={"menu-bar-pencil"}
           textClass={"menu-bar-pencil__text"}
@@ -65,7 +79,11 @@ function Header({
         loadFromFile={loadFromFile}
         resetModelHandler={resetModelHandler}
       />
-      <MenuSize isOpen={openMenu === OpenMenu.Size} onClose={onClose} />
+      <MenuSize
+        isOpen={openMenu === OpenMenu.Size}
+        onClose={onClose}
+        activeCanvas={activeCanvas}
+      />
     </header>
   );
 }

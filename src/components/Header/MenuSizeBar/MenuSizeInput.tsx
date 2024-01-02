@@ -4,9 +4,10 @@ import styles from "./MenuSizeInput.module.css";
 type MenuInputProps = {
   placehold: string;
   text: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-function MenuInput({ placehold, text }: MenuInputProps) {
+function MenuInput({ placehold, text, onChange }: MenuInputProps) {
   return (
     <div className={styles.menu_input_wrapper}>
       <p className={styles.menu_size_text}>{text}(px)</p>
@@ -14,6 +15,7 @@ function MenuInput({ placehold, text }: MenuInputProps) {
         className={styles.menu_size_input}
         name="Size"
         placeholder={placehold}
+        onChange={onChange}
       />
     </div>
   );

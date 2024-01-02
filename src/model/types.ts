@@ -1,4 +1,4 @@
-enum ArtObjectValue {
+export enum ArtObjectValue {
   Chat,
   Flower,
   Gift,
@@ -18,12 +18,12 @@ type Position = {
   y: number;
 };
 
-type Background = {
+type Photo = {
   source: "bs64" | "link";
   src: string;
 };
 
-type BackgroundCanvas = Array<Background>;
+type BackgroundCanvas = Array<Photo>;
 
 type Color = {
   color: string;
@@ -51,8 +51,7 @@ type TextInfo = {
 type Image = {
   id: string;
   type: "image";
-  source: "bs64" | "link";
-  data: string;
+  data: Photo;
   size: Size;
   position: Position;
 };
@@ -67,29 +66,26 @@ type ArtObject = {
   position: Position;
 };
 
-type ActiveObjects = Array<string>;
+type ActiveObjects = string;
 
 type Filter = {
   color: Color;
-};
-
-type CommandHistory = {
-  commandType: string;
-  timestamp: Date;
 };
 
 type CardTemplate = {
   id: string;
   description: string;
   elements: Array<TextInfo | Image | ArtObject>;
-  background: Color | Image;
+  background: Color | Photo;
   size: Size;
 };
+
+type ActiveCanvas = string;
 
 type Canvas = {
   id: string;
   size: Size;
-  background: Color | Image;
+  background: Color | Photo;
   elements: Array<TextInfo | Image | ArtObject>;
   filter: Filter;
   active: ActiveObjects;
@@ -98,11 +94,12 @@ type Canvas = {
 type Editor = {
   canvas: Array<Canvas>;
   template: Array<CardTemplate>;
-  history: CommandHistory; //дополнительное поле
+  upload: Array<Photo>;
+  active: ActiveCanvas;
 };
 
 export type {
-  Background,
+  Photo,
   BackgroundCanvas,
   TextInfo,
   Color,
@@ -111,8 +108,8 @@ export type {
   ArtObject,
   ActiveObjects,
   Filter,
-  CommandHistory,
   CardTemplate,
   Canvas,
   Editor,
+  ActiveCanvas,
 };

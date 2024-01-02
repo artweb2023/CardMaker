@@ -2,7 +2,15 @@
   position: relative;
   width: 800px;
   height: 600px;
-  margin: 50px 0 50px 225px;
+  margin: 50px 165px 50px 235px;
   background-color: #ffff;
   border: 1px solid #cdcdcd;
+}
+
+.container{
+  border: 1px solid #cdcdcd;
+}
+
+.selected {
+    border: 2px solid #00bfff;;
 }

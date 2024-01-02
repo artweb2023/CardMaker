@@ -1,27 +1,42 @@
 import { useState } from "react";
 import { SlideTab } from "./SideTab/SideTab";
-import styles from "./SideBar.module.css";
 import { SlidePanelView } from "./SlideTabPanel/SlidePanel";
-
+import { Photo } from "../../model/types";
+import styles from "./SideBar.module.css";
+import { useSelector } from "react-redux";
+import { useAppActions } from "../../redux/hooks";
+import { selectEditor } from "../../redux/selectors";
+import { getNewTextElement } from "../../utils/utils";
 enum OpenPanel {
   None,
   Template,
   Photo,
   ArtObject,
-  Load,
   Background,
 }
 
-function SideBar() {
-  const [openPanel, setSlidePanel] = useState(OpenPanel.None);
+type SideBarProps = {
+  upload: Array<Photo>;
+};
 
+function SideBar({ upload }: SideBarProps) {
+  const [openPanel, setSlidePanel] = useState(OpenPanel.None);
   const onClose = () => {
     setSlidePanel(OpenPanel.None);
   };
 
-  const toggleMenu = (panel: OpenPanel) => {
-    setSlidePanel((prev) => (prev === panel ? OpenPanel.None : panel));
+  const editorModel = useSelector(selectEditor);
+  const canvasId = editorModel.active;
+  const { createAddCanvasElement } = useAppActions();
+
+  const handleTextClick = () => {
+    const newTextElement = getNewTextElement();
+    createAddCanvasElement(canvasId, newTextElement);
+    onClose();
   };
+  function toggleMenu(panel: OpenPanel) {
+    setSlidePanel((prev) => (prev === panel ? OpenPanel.None : panel));
+  }
 
   return (
     <div className={styles.side}>
@@ -33,7 +48,7 @@ function SideBar() {
       <SlideTab
         className={"slide_bar_icon__text"}
         text={"Текст"}
-        onClick={onClose}
+        onClick={handleTextClick}
       ></SlideTab>
       <SlideTab
         className={"slide_bar_icon__photo"}
@@ -46,11 +61,6 @@ function SideBar() {
         onClick={() => toggleMenu(OpenPanel.ArtObject)}
       ></SlideTab>
       <SlideTab
-        className={"slide_bar_icon__dowloads"}
-        text={"Загрузить"}
-        onClick={() => toggleMenu(OpenPanel.Load)}
-      ></SlideTab>
-      <SlideTab
         className={"slide_bar_icon__background"}
         text={"Фон"}
         onClick={() => toggleMenu(OpenPanel.Background)}
@@ -59,6 +69,7 @@ function SideBar() {
         isOpen={openPanel != OpenPanel.None}
         onClose={onClose}
         activePanel={openPanel}
+        upload={upload}
       ></SlidePanelView>
     </div>
   );

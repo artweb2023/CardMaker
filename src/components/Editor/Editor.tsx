@@ -1,23 +1,28 @@
-import { useState } from "react";
+import { selectEditor } from "../../redux/selectors";
+import { useSelector } from "react-redux";
+import { useAppActions } from "../../redux/hooks";
 import { Header } from "../Header/Header";
 import { SideBar } from "../Sidebar/SideBar";
 import { Main } from "../Main/Main";
-import { editorData } from "../../data/data";
 import { Editor } from "../../model/types";
-import {
-  saveModelToLocal,
-  loadModelFromLocal,
-} from "../../fileUtils/fileUtils";
+import { saveModelToLocal, loadModelFromLocal } from "../../utils/fileUtils";
 import styles from "./Editor.module.css";
 
 function EditorView() {
-  const [editorModel, setEditorModel] = useState<Editor>(editorData);
+  const editorModel = useSelector(selectEditor);
+  const {
+    createSaveCanvasAction,
+    createLoadCanvas,
+    createEmptyModel,
+    createChangeActiveCanvasAction,
+  } = useAppActions();
 
   function getEmptyEditorModel(): Editor {
     return {
       canvas: [],
-      template: editorData.template,
-      history: editorData.history,
+      template: editorModel.template,
+      upload: [],
+      active: "",
     };
   }
 
@@ -27,24 +32,33 @@ function EditorView() {
 
   const loadFromFile = () => {
     loadModelFromLocal((model) => {
-      setEditorModel(model);
+      createLoadCanvas(model);
     });
   };
 
   const resetModelHandler = () => {
-    setEditorModel(getEmptyEditorModel());
+    const emptyModel = getEmptyEditorModel();
+    createSaveCanvasAction(emptyModel);
+    createLoadCanvas(emptyModel);
+    createEmptyModel(emptyModel);
   };
 
+  const handleSelectCanvas = (canvasId: string) => {
+    createChangeActiveCanvasAction(canvasId);
+  };
   return (
-    <div className="editor-wrapper">
+    <div className={styles.editor_wrapper}>
       <Header
         saveToFile={saveToFile}
         loadFromFile={loadFromFile}
         resetModelHandler={resetModelHandler}
       />
       <div className={styles.main}>
-        <SideBar />
-        <Main canvasInfo={editorModel.canvas} />
+        <SideBar upload={editorModel.upload} />
+        <Main
+          onSelectCanvas={handleSelectCanvas}
+          selectedCanvasId={editorModel.active}
+        />
       </div>
     </div>
   );
