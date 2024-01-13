@@ -8,6 +8,7 @@ import { useAppActions } from "../../redux/hooks";
 import { selectEditor } from "../../redux/selectors";
 import { useSelector } from "react-redux";
 import style from "./Header.module.css";
+import { createCanvasImage } from "../../utils/greateCanvasImage";
 
 type MenuFileProps = {
   saveToFile: () => void;
@@ -30,6 +31,10 @@ function Header({
   const editorModel = useSelector(selectEditor);
   const { createDeleteCanvas } = useAppActions();
   const activeCanvas = editorModel.active;
+  const handleSavePdfClick = () => {
+    createCanvasImage(activeCanvas);
+  };
+
   const deleteCanvas = () => {
     if (activeCanvas !== null) createDeleteCanvas(activeCanvas);
   };
@@ -71,6 +76,7 @@ function Header({
       <HeaderButton
         text={"Скачать"}
         className={"menu_bar_button__dowload"}
+        onClick={handleSavePdfClick}
       ></HeaderButton>
       <MenuFileBar
         isOpen={openMenu === OpenMenu.File}

@@ -21,11 +21,12 @@ type ArtObjectProps = {
 
 function ArtObjectView({ art, isSelected, onClick }: ArtObjectProps) {
   const {
-    size,
     position,
     value,
-    border_color: { color },
     background,
+    border_color: { color },
+    size,
+    transform,
   } = art;
 
   let ArtObjecContent;
@@ -77,6 +78,7 @@ function ArtObjectView({ art, isSelected, onClick }: ArtObjectProps) {
       size={size}
       background={background}
       className="artobject"
+      transform={transform}
     >
       <div onClick={onClick}>{ArtObjecContent}</div>
     </ActiveObjectView>

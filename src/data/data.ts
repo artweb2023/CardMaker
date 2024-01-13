@@ -31,6 +31,10 @@ const textInfoData: TextInfo = {
     width: 200,
     height: 50,
   },
+  transform: {
+    type: "rotate",
+    value: 0,
+  },
 };
 
 const photoData1: Photo = {
@@ -55,6 +59,10 @@ const imageData1: Image = {
     x: 225,
     y: 170,
   },
+  transform: {
+    type: "rotate",
+    value: 0,
+  },
 };
 
 const imageData2: Image = {
@@ -68,6 +76,10 @@ const imageData2: Image = {
   position: {
     x: 0,
     y: 350,
+  },
+  transform: {
+    type: "rotate",
+    value: 0,
   },
 };
 
@@ -84,6 +96,10 @@ const artObjectData: ArtObject = {
   position: {
     x: 380,
     y: 210,
+  },
+  transform: {
+    type: "rotate",
+    value: 0,
   },
 };
 
@@ -107,7 +123,7 @@ const artObjectData: ArtObject = {
 const activeObjects: ActiveObjects = "idImage1";
 
 const filterData: Filter = {
-  color: { color: "#03FA00" },
+  filter: "grayscale(80%)",
 };
 
 const canvasData: Canvas = {
@@ -126,13 +142,7 @@ const activecanvasData: ActiveCanvas = "sunrise";
 
 const cardTemplateData: CardTemplate = {
   id: "id32",
-  description: "Пример шаблона",
-  elements: [artObjectData],
-  background: { color: "#008000" },
-  size: {
-    width: 800,
-    height: 600,
-  },
+  canvas: canvasData,
 };
 
 /* const canvasData1: Canvas = {

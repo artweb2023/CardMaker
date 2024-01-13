@@ -1,0 +1,15 @@
+.template {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+
+.text {
+    font: 400 16px/18px "Montserrat", sans-serif;
+    color: #878787;
+    margin: 15px 37px 25px auto;
+}

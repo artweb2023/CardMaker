@@ -1,0 +1,15 @@
+.content {
+    cursor: pointer;
+    text-align: left;
+    font: 400 14px/14px "Montserrat", sans-serif;
+    border-style: none;
+    background-color: #ffffff;
+    padding: 7px 0;
+    width: 100%;
+    padding: 7px 0 7px 15px;
+    border-radius: 4px;
+}
+
+.content:hover {
+    background-color: #f6f6f6;
+}

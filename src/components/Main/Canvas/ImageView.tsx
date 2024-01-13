@@ -9,7 +9,7 @@ type ImageSourceProps = {
 };
 
 function ImageView({ imageData, isSelected, onClick }: ImageSourceProps) {
-  const { size, position, data } = imageData;
+  const { size, position, data, transform } = imageData;
 
   return (
     <ActiveObjectView
@@ -17,6 +17,7 @@ function ImageView({ imageData, isSelected, onClick }: ImageSourceProps) {
       position={position}
       size={size}
       className="image"
+      transform={transform}
     >
       <img className={styles.image} src={data.src} onClick={onClick} />
     </ActiveObjectView>

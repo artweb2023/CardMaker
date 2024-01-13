@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./ObjectSettings.module.css";
 import { TextSettings } from "./TextSettings/TextSettings";
 import { ArtObjectSettings } from "./ArtObjectSettings/ArtObjectSettings";
+import { ImageSettingsView } from "./ImageSettings/ImageSettings";
 import { TextInfo, Image, ArtObject } from "../../../../model/types";
 
 type ObjectSettingsProps = {
@@ -24,6 +25,9 @@ function ObjectSettings({ activeElement, elements }: ObjectSettingsProps) {
       elementSettings = (
         <ArtObjectSettings artObjectData={selectedElement as ArtObject} />
       );
+      break;
+    case "image":
+      elementSettings = <ImageSettingsView />;
       break;
     default:
       elementSettings = null;

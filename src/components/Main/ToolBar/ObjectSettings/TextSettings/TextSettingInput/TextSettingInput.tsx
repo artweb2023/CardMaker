@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./TessSettingInput.module.css";
 
 type TextSettingsInputProps = {
@@ -6,6 +5,7 @@ type TextSettingsInputProps = {
   className: string;
   placeholder?: string;
   value?: string;
+  selectValue: (value: string) => void;
 };
 
 function TextSettingsInput({
@@ -13,13 +13,15 @@ function TextSettingsInput({
   className,
   placeholder,
   value,
+  selectValue,
 }: TextSettingsInputProps) {
   return (
     <input
       className={styles[className]}
       type={type}
       placeholder={placeholder}
-      defaultValue={value}
+      value={value}
+      onChange={(e) => selectValue(e.target.value)}
     />
   );
 }

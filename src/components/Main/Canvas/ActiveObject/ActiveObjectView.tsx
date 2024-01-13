@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import active from "./ActiveObject.module.css";
-import { Color } from "../../../../model/types";
+import { Color, Transform } from "../../../../model/types";
 import { useDragAndDrop } from "../../../../hook/useDND";
+import { selectEditor } from "../../../../redux/selectors";
+import { useAppSelector, useAppActions } from "../../../../redux/hooks";
 
 type ActiveObjectViewProps = {
   isSelected: boolean;
@@ -10,6 +12,7 @@ type ActiveObjectViewProps = {
   size: { width: number; height: number };
   children: React.ReactNode;
   background?: Color;
+  transform: Transform;
 };
 
 function ActiveObjectView({
@@ -19,12 +22,20 @@ function ActiveObjectView({
   position: { x, y },
   size: { width, height },
   background,
+  transform,
 }: ActiveObjectViewProps) {
+  const { createChangeElementPosition, createChangeElementSize } =
+    useAppActions();
+  const editorInfo = useAppSelector(selectEditor);
+  const activeCanvasId = editorInfo.active;
+  const selectedCanvas = editorInfo.canvas.find(
+    (canvas) => canvas.id === activeCanvasId,
+  );
+  const activeElementId = selectedCanvas ? selectedCanvas.active : "";
   const classNames = `${active.container} ${
     isSelected ? active.selected : active[className]
   }
   `;
-
   const refMiddleButton = useRef<HTMLDivElement>(null);
   const refResizMiddleRight = useRef<HTMLDivElement>(null);
   const refResizeDownRight = useRef<HTMLDivElement>(null);
@@ -33,7 +44,15 @@ function ActiveObjectView({
   const refResizeMiddleLeft = useRef<HTMLDivElement>(null);
   const refResizeDownLeft = useRef<HTMLDivElement>(null);
   const refResizeUpLeft = useRef<HTMLDivElement>(null);
-  const [blockSize, setBlockSize] = useState({ width, height, x, y });
+  let blockSize = {
+    width,
+    height,
+  };
+
+  let blockPostition = {
+    x,
+    y,
+  };
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -41,12 +60,20 @@ function ActiveObjectView({
     { elementRef: ref, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        setBlockSize({
-          width: blockSize.width,
-          height: blockSize.height,
-          x: blockSize.x + delta.x,
-          y: blockSize.y + delta.y,
-        });
+        blockSize = {
+          width,
+          height,
+        };
+        createChangeElementSize(activeCanvasId, activeElementId, blockSize);
+        blockPostition = {
+          x: x + delta.x,
+          y: y + delta.y,
+        };
+        createChangeElementPosition(
+          activeCanvasId,
+          activeElementId,
+          blockPostition,
+        );
       },
     },
   );
@@ -55,12 +82,20 @@ function ActiveObjectView({
     { elementRef: refResizeUpLeft, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        setBlockSize({
-          width: blockSize.width - delta.x,
-          height: blockSize.height - delta.y,
-          x: blockSize.x + delta.x,
-          y: blockSize.y + delta.y,
-        });
+        blockSize = {
+          width: width - delta.x,
+          height: height - delta.y,
+        };
+        createChangeElementSize(activeCanvasId, activeElementId, blockSize);
+        blockPostition = {
+          x: x + delta.x,
+          y: y + delta.y,
+        };
+        createChangeElementPosition(
+          activeCanvasId,
+          activeElementId,
+          blockPostition,
+        );
       },
     },
   );
@@ -69,12 +104,20 @@ function ActiveObjectView({
     { elementRef: refResizeDownLeft, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        setBlockSize({
-          width: blockSize.width - delta.x,
-          height: blockSize.height + delta.y,
-          x: blockSize.x + delta.x,
-          y: blockSize.y,
-        });
+        blockSize = {
+          width: width - delta.x,
+          height: height + delta.y,
+        };
+        createChangeElementSize(activeCanvasId, activeElementId, blockSize);
+        blockPostition = {
+          x: x + delta.x,
+          y: y,
+        };
+        createChangeElementPosition(
+          activeCanvasId,
+          activeElementId,
+          blockPostition,
+        );
       },
     },
   );
@@ -83,12 +126,20 @@ function ActiveObjectView({
     { elementRef: refResizeMiddleLeft, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        setBlockSize({
-          width: blockSize.width - delta.x,
-          height: blockSize.height,
-          x: blockSize.x + delta.x,
-          y: blockSize.y,
-        });
+        blockSize = {
+          width: width - delta.x,
+          height: height,
+        };
+        createChangeElementSize(activeCanvasId, activeElementId, blockSize);
+        blockPostition = {
+          x: x + delta.x,
+          y: y,
+        };
+        createChangeElementPosition(
+          activeCanvasId,
+          activeElementId,
+          blockPostition,
+        );
       },
     },
   );
@@ -97,12 +148,20 @@ function ActiveObjectView({
     { elementRef: refResizeUpRight, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        setBlockSize({
-          width: blockSize.width + delta.x,
-          height: blockSize.height - delta.y,
-          x: blockSize.x,
-          y: blockSize.y + delta.y,
-        });
+        blockSize = {
+          width: width + delta.x,
+          height: height - delta.y,
+        };
+        createChangeElementSize(activeCanvasId, activeElementId, blockSize);
+        blockPostition = {
+          x: x,
+          y: y + delta.y,
+        };
+        createChangeElementPosition(
+          activeCanvasId,
+          activeElementId,
+          blockPostition,
+        );
       },
     },
   );
@@ -111,12 +170,20 @@ function ActiveObjectView({
     { elementRef: refMiddleButton, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        setBlockSize({
-          width: blockSize.width,
-          height: blockSize.height + delta.y,
-          x: blockSize.x,
-          y: blockSize.y,
-        });
+        blockSize = {
+          width: width,
+          height: height + delta.y,
+        };
+        createChangeElementSize(activeCanvasId, activeElementId, blockSize);
+        blockPostition = {
+          x: x,
+          y: y,
+        };
+        createChangeElementPosition(
+          activeCanvasId,
+          activeElementId,
+          blockPostition,
+        );
       },
     },
   );
@@ -125,12 +192,20 @@ function ActiveObjectView({
     { elementRef: refResizMiddleRight, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        setBlockSize({
-          width: blockSize.width + delta.x,
-          height: blockSize.height,
-          x: blockSize.x,
-          y: blockSize.y,
-        });
+        blockSize = {
+          width: width + delta.x,
+          height: height,
+        };
+        createChangeElementSize(activeCanvasId, activeElementId, blockSize);
+        blockPostition = {
+          x: x,
+          y: y,
+        };
+        createChangeElementPosition(
+          activeCanvasId,
+          activeElementId,
+          blockPostition,
+        );
       },
     },
   );
@@ -139,12 +214,20 @@ function ActiveObjectView({
     { elementRef: refResizeDownRight, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        setBlockSize({
-          width: blockSize.width + delta.x,
-          height: blockSize.height + delta.y,
-          x: blockSize.x,
-          y: blockSize.y,
-        });
+        blockSize = {
+          width: width + delta.x,
+          height: height + delta.y,
+        };
+        createChangeElementSize(activeCanvasId, activeElementId, blockSize);
+        blockPostition = {
+          x: x,
+          y: y,
+        };
+        createChangeElementPosition(
+          activeCanvasId,
+          activeElementId,
+          blockPostition,
+        );
       },
     },
   );
@@ -153,23 +236,43 @@ function ActiveObjectView({
     { elementRef: refResizeUpMiddle, isActive: isSelected },
     {
       onPositionChange: (delta) => {
-        setBlockSize({
-          width: blockSize.width,
-          height: blockSize.height - delta.y,
-          x: blockSize.x,
-          y: blockSize.y + delta.y,
-        });
+        blockSize = {
+          width: width,
+          height: height - delta.y,
+        };
+        createChangeElementSize(activeCanvasId, activeElementId, blockSize);
+        blockPostition = {
+          x: x,
+          y: y + delta.y,
+        };
+        createChangeElementPosition(
+          activeCanvasId,
+          activeElementId,
+          blockPostition,
+        );
       },
     },
   );
 
+  function getTransformStyle(transform: Transform) {
+    switch (transform.type) {
+      case "rotate":
+        return `rotate(${transform.value}deg)`;
+      case "scale":
+        return `scale(${transform.value})`;
+      default:
+        return "";
+    }
+  }
+
   const activeStyles = {
     width: blockSize.width,
     height: blockSize.height,
-    left: blockSize.x,
-    top: blockSize.y,
+    left: blockPostition.x,
+    top: blockPostition.y,
     cursor: isDragging ? "grabbing" : "grab",
     background: background?.color,
+    transform: transform ? getTransformStyle(transform) : "",
   };
 
   const resizeMiddleRight = {

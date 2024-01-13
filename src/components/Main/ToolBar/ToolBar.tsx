@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ButtonArrow } from "./ToolBarButtonArrow";
 import { ObjectSettings } from "./ObjectSettings/ObjectSettings";
 import { ToolButton } from "./ToolBarButton";
@@ -14,7 +15,14 @@ type ToolbarProps = {
 };
 
 function Toolbar({ activeElement, elements }: ToolbarProps) {
-  const { createAddCanvas, createRemoveCanvasElement } = useAppActions();
+  const [filterIndex, setFilterIndex] = useState(0);
+  const {
+    createAddCanvas,
+    createRemoveCanvasElement,
+    createUndoAction,
+    createRedoAction,
+    createAddFilter,
+  } = useAppActions();
   const handleCreateCanvasClick = () => {
     const newCanvas = getNewCanvas();
     createAddCanvas(newCanvas);
@@ -28,10 +36,26 @@ function Toolbar({ activeElement, elements }: ToolbarProps) {
       createRemoveCanvasElement(canvasId, activeElement);
     }
   };
+  const handleUndoClick = () => {
+    createUndoAction();
+  };
+  const handleRedoClick = () => {
+    createRedoAction();
+  };
+  const filter = [
+    "grayscale(100%)",
+    "brightness(120%) saturate(120%) hue-rotate(180deg)",
+    "sepia(20%) saturate(200%) hue-rotate(-50deg)",
+    "",
+  ];
+  const handleChangeFilterClick = () => {
+    createAddFilter(canvasId, { filter: filter[filterIndex] });
+    setFilterIndex((prevIndex) => (prevIndex + 1) % filter.length);
+  };
   return (
     <div className={styles.tool_bar}>
-      <ButtonArrow className={"tool_bar__left"} />
-      <ButtonArrow className={"tool_bar__right"} />
+      <ButtonArrow className={"tool_bar__left"} onClick={handleRedoClick} />
+      <ButtonArrow className={"tool_bar__right"} onClick={handleUndoClick} />
       <ObjectSettings
         activeElement={safeActiveElement}
         elements={safeElements}
@@ -42,7 +66,11 @@ function Toolbar({ activeElement, elements }: ToolbarProps) {
           text={"Создать"}
           onClick={handleCreateCanvasClick}
         />
-        <ToolButton className={"tool_bar_button__filter"} text={"Фиильтр"} />
+        <ToolButton
+          className={"tool_bar_button__filter"}
+          text={"Фиильтр"}
+          onClick={handleChangeFilterClick}
+        />
         <ToolButton
           className={"tool_bar_button__trash"}
           text={"Удалить"}

@@ -18,17 +18,17 @@ function MenuSize(props: MenuProps) {
   const [height, setHeight] = useState("");
 
   const handleWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setWidth(event.target.value);
+    event.target.value ? setWidth(event.target.value) : setWidth("800");
   };
 
   const handleHeightChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setHeight(event.target.value);
+    event.target.value ? setHeight(event.target.value) : setHeight("600");
   };
 
   const handleSaveClick = () => {
     const newSize = {
-      width: parseInt(width, 10),
-      height: parseInt(height, 10),
+      width: width ? parseInt(width, 10) : 800,
+      height: height ? parseInt(height, 10) : 600,
     };
     if (activeCanvas) {
       createChangeSize(activeCanvas, newSize);

@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { TextInfo } from "../../../model/types";
 import styles from "./TextView.module.css";
 import { ActiveObjectView } from "./ActiveObject/ActiveObjectView";
-
+import { selectEditor } from "../../../redux/selectors";
+import { useAppSelector, useAppActions } from "../../../redux/hooks";
 type TextDataProps = {
   text: TextInfo;
   isSelected: boolean;
@@ -10,8 +10,16 @@ type TextDataProps = {
 };
 
 function Text({ text, isSelected, onClick }: TextDataProps) {
+  const { createChangeTextValue } = useAppActions();
+  const editorInfo = useAppSelector(selectEditor);
+  const canvasId = editorInfo.active;
+  const selectedCanvas = editorInfo.canvas.find(
+    (canvas) => canvas.id === canvasId,
+  );
+  const elementId = selectedCanvas ? selectedCanvas.active : "";
   const {
     position,
+    value,
     fontSize,
     fontFamily,
     color: { color },
@@ -19,8 +27,8 @@ function Text({ text, isSelected, onClick }: TextDataProps) {
     coursive,
     underline,
     size,
+    transform,
   } = text;
-  const [value, setValue] = useState(text.value);
 
   const textStyle = {
     fontSize,
@@ -37,6 +45,7 @@ function Text({ text, isSelected, onClick }: TextDataProps) {
       position={position}
       size={size}
       className={"textarea"}
+      transform={transform}
     >
       <textarea
         className={`${styles.textarea}`}
@@ -45,7 +54,7 @@ function Text({ text, isSelected, onClick }: TextDataProps) {
         placeholder={value}
         onClick={onClick}
         onChange={(e) => {
-          setValue(e.target.value);
+          createChangeTextValue(canvasId, elementId, e.target.value);
         }}
       />
     </ActiveObjectView>

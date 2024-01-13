@@ -21,8 +21,10 @@ function Main({ onSelectCanvas, selectedCanvasId }: CanvasDataProps) {
   }
 
   const handleSelectElementClick = (elementId: string) => {
-    if (selectedCanvasId)
-      createChangeAcativeElement(selectedCanvasId, elementId);
+    if (selectedCanvasId) {
+      const newActiveElementId = activeElementId === elementId ? "" : elementId;
+      createChangeAcativeElement(selectedCanvasId, newActiveElementId);
+    }
   };
 
   let elements: Array<TextInfo | Image | ArtObject> = [];

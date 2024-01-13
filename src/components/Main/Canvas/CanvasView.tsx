@@ -30,6 +30,8 @@ function CanvasView({
     return null;
   }
   const {
+    id,
+    filter: { filter },
     elements,
     size: { width, height },
     background,
@@ -37,6 +39,7 @@ function CanvasView({
   const canvasStyle = {
     width,
     height,
+    filter,
     ...(background instanceof Object && "color" in background
       ? { backgroundColor: (background as Color).color }
       : { backgroundImage: `url(${(background as Photo).src})` }),
@@ -52,50 +55,52 @@ function CanvasView({
   `;
 
   return (
-    <div className={classNames} style={canvasStyle} onClick={onSelectCanvas}>
-      {elements.map((element, index) => {
-        const isBlockSelected = activeElement === element.id;
-        const handleClick = () => {
-          onElementClick(element.id);
-        };
-        switch (element.type) {
-          case "text": {
-            const textElement = element as TextInfo;
-            return (
-              <Text
-                key={index}
-                text={textElement}
-                isSelected={isBlockSelected}
-                onClick={handleClick}
-              />
-            );
+    <div className={classNames} style={canvasStyle}>
+      <div style={canvasStyle} onClick={onSelectCanvas} id={id}>
+        {elements.map((element, index) => {
+          const isBlockSelected = activeElement === element.id;
+          const handleClick = () => {
+            onElementClick(element.id);
+          };
+          switch (element.type) {
+            case "text": {
+              const textElement = element as TextInfo;
+              return (
+                <Text
+                  key={index}
+                  text={textElement}
+                  isSelected={isBlockSelected}
+                  onClick={handleClick}
+                />
+              );
+            }
+            case "image": {
+              const imageElement = element as Image;
+              return (
+                <ImageView
+                  key={index}
+                  imageData={imageElement}
+                  isSelected={isBlockSelected}
+                  onClick={handleClick}
+                />
+              );
+            }
+            case "ArtObject": {
+              const artObjectElement = element as ArtObject;
+              return (
+                <ArtObjectView
+                  key={index}
+                  art={artObjectElement}
+                  isSelected={isBlockSelected}
+                  onClick={handleClick}
+                />
+              );
+            }
+            default:
+              return null;
           }
-          case "image": {
-            const imageElement = element as Image;
-            return (
-              <ImageView
-                key={index}
-                imageData={imageElement}
-                isSelected={isBlockSelected}
-                onClick={handleClick}
-              />
-            );
-          }
-          case "ArtObject": {
-            const artObjectElement = element as ArtObject;
-            return (
-              <ArtObjectView
-                key={index}
-                art={artObjectElement}
-                isSelected={isBlockSelected}
-                onClick={handleClick}
-              />
-            );
-          }
-          default:
-            return null;
-        }
-      })}
+        })}
+      </div>
     </div>
   );
 }

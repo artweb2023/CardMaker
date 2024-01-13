@@ -2,6 +2,7 @@ import styles from "./SlidePanel.module.css";
 import { PanelArtObjectView } from "../SlideTabPanel/PanelArtObject";
 import { PanelBackgroundView } from "./PanelBackgroundView";
 import { PanelPhotoView } from "./PanelPhotoView";
+import { PanelTemplateView } from "./PanelTemplateView";
 import { Photo, ArtObjectValue } from "../../../model/types";
 import { useSelector } from "react-redux";
 import { selectEditor } from "../../../redux/selectors";
@@ -43,6 +44,9 @@ function SlidePanelView({
   switch (activePanel) {
     case 0:
       panelContent = null;
+      break;
+    case 1:
+      panelContent = <PanelTemplateView />;
       break;
     case 2:
       panelContent = (

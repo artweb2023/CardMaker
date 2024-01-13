@@ -13,6 +13,11 @@ export enum ArtObjectValue {
   Tree,
 }
 
+type Transform = {
+  type: "rotate" | "scale";
+  value: number;
+};
+
 type Position = {
   x: number;
   y: number;
@@ -46,6 +51,7 @@ type TextInfo = {
   underline: boolean;
   position: Position;
   size: Size;
+  transform: Transform;
 };
 
 type Image = {
@@ -54,6 +60,7 @@ type Image = {
   data: Photo;
   size: Size;
   position: Position;
+  transform: Transform;
 };
 
 type ArtObject = {
@@ -64,20 +71,13 @@ type ArtObject = {
   border_color: Color;
   background: Color;
   position: Position;
+  transform: Transform;
 };
 
 type ActiveObjects = string;
 
 type Filter = {
-  color: Color;
-};
-
-type CardTemplate = {
-  id: string;
-  description: string;
-  elements: Array<TextInfo | Image | ArtObject>;
-  background: Color | Photo;
-  size: Size;
+  filter: string;
 };
 
 type ActiveCanvas = string;
@@ -91,6 +91,11 @@ type Canvas = {
   active: ActiveObjects;
 };
 
+type CardTemplate = {
+  id: string;
+  canvas: Canvas;
+};
+
 type Editor = {
   canvas: Array<Canvas>;
   template: Array<CardTemplate>;
@@ -102,6 +107,7 @@ export type {
   Photo,
   BackgroundCanvas,
   TextInfo,
+  Position,
   Color,
   Size,
   Image,
@@ -112,4 +118,5 @@ export type {
   Canvas,
   Editor,
   ActiveCanvas,
+  Transform,
 };

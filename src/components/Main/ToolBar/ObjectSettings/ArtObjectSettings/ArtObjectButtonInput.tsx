@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./ArtObjectButtonInput.module.css";
 import { Color } from "../../../../../model/types";
 
@@ -7,6 +6,7 @@ type ArtObjectInputProps = {
   classNameInput: string;
   text: string;
   value: Color;
+  selectValue: (value: string) => void;
 };
 
 function ArtObjectButtonInput({
@@ -14,6 +14,7 @@ function ArtObjectButtonInput({
   classNameInput,
   text,
   value: { color },
+  selectValue,
 }: ArtObjectInputProps) {
   return (
     <button className={style[classNameButton]}>
@@ -21,7 +22,8 @@ function ArtObjectButtonInput({
       <input
         className={style[classNameInput]}
         type="color"
-        defaultValue={color}
+        value={color}
+        onChange={(e) => selectValue(e.target.value)}
       />
     </button>
   );

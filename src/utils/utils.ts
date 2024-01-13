@@ -8,11 +8,23 @@ import {
   Image,
 } from "../model/types";
 import { generateRandomId } from "./generateRandomId";
+import { getTemplate } from "./getTemplate";
+import template1 from "../data/template/2024/2024.json";
+import template2 from "../data/template/8/8_March.json";
+import template3 from "../data/template/happybithday/HappyBirthdayBlueAir.json";
+import template4 from "../data/template/happybithdaycake/HappyBirthdayCake.json";
+import template5 from "../data/template/newyear/HappyNewYear.json";
 
 function getEditorModel(): Editor {
   return {
     canvas: [],
-    template: [],
+    template: [
+      getTemplate(JSON.stringify(template1)),
+      getTemplate(JSON.stringify(template2)),
+      getTemplate(JSON.stringify(template3)),
+      getTemplate(JSON.stringify(template4)),
+      getTemplate(JSON.stringify(template5)),
+    ],
     upload: [],
     active: "",
   };
@@ -27,7 +39,7 @@ function getNewCanvas(): Canvas {
     },
     background: { color: "" },
     elements: [],
-    filter: { color: { color: "" } },
+    filter: { filter: "" },
     active: "",
   };
 }
@@ -38,7 +50,7 @@ function getNewTextElement(): TextInfo {
     type: "text",
     value: "Пример текста",
     fontSize: 16,
-    fontFamily: "Arial",
+    fontFamily: "Times New Roman",
     color: {
       color: "#000000",
     },
@@ -53,6 +65,10 @@ function getNewTextElement(): TextInfo {
       width: 200,
       height: 50,
     },
+    transform: {
+      type: "rotate",
+      value: 0,
+    },
   };
 }
 
@@ -65,6 +81,10 @@ function getNewArtObjectElement(value: ArtObjectValue): ArtObject {
     border_color: { color: "#000000" },
     background: { color: "" },
     position: { x: 380, y: 210 },
+    transform: {
+      type: "rotate",
+      value: 0,
+    },
   };
 }
 
@@ -75,6 +95,10 @@ function getNewImageElement(data: Photo): Image {
     data,
     size: { width: 100, height: 100 },
     position: { x: 310, y: 250 },
+    transform: {
+      type: "rotate",
+      value: 0,
+    },
   };
 }
 

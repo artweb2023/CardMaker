@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60px;
+    height: 100%;
+}
+
+.arro_left {
+    display: block;
+    background: url("../../../../img/arrow-counterclockwise.svg");
+    width: 24px;
+    height: 24px;
+    border-style: none;
+    cursor: pointer;
+}
+
+.arro_right {
+    display: block;
+    background: url("../../../../img/arrow-clockwise.svg");
+    width: 24px;
+    height: 24px;
+    border-style: none;
+    cursor: pointer;
+}
+
+.arro_left:hover {
+   background-color: #f6f6f6;
+   border-radius: 4px;
+}   
+
+.arro_right:hover {
+   background-color: #f6f6f6;
+   border-radius: 4px;
+}   

@@ -2,5 +2,17 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 754px;
+}
+
+@media screen and (min-width: 1080px) {
+  .editor {
+    height: 754px;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .editor {
+    height: 1800px;
+  }
 }
