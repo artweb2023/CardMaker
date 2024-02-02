@@ -17,14 +17,14 @@ function TransformSettingsView() {
       type: "rotate",
       value: value,
     });
-    setValue((value) => value + 5);
+    setValue((prev) => prev + 5);
   };
   const handleChangeSubTransformClick = () => {
     createChangeTransformElement(canvasId, elementId, {
       type: "rotate",
       value: value,
     });
-    setValue((value) => value - 5);
+    setValue((prev) => prev - 5);
   };
   return (
     <div className={style.container}>
