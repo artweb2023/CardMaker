@@ -55,3 +55,4 @@ npm start
 - HTML/CSS
 - Redux
 
+## Посмотреть работу можно : https://card-maker-ts.netlify.app/
