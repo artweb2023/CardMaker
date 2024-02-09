@@ -13,6 +13,7 @@
     width: 12px;
     background: #000;
 }
+
 ::-webkit-scrollbar-thumb {
     background: #bbbbbb;
     -webkit-border-radius: 1ex;
